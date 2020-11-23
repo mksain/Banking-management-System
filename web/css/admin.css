@@ -1,0 +1,221 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+}
+.header
+{
+    display:flex;
+    align-items: center;
+    justify-content:space-around;
+    background-color: #bd4c33f7;
+    color: white;
+    position: fixed;
+    width:100%;
+    height:70px;
+}
+.header ul
+{
+    list-style-type:none;
+    display: flex;
+}
+.header ul li a
+{
+    text-decoration: none;
+    margin: 5px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    color: white;
+}
+.header ul li a:hover
+{
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    background-color: 
+        color: white;
+}
+
+/*-----Dash------*/
+
+.dash
+{
+    padding-top: 70px;
+    display: flex;
+}
+.dash .dash-item1
+{
+
+    background-color: #1b3244d9;;
+    margin: 0px;
+    padding: 0px;
+    width:25%;
+    /*  min-height: 600px;*/
+    bottom: 0;
+    top:0;
+    margin-top: 70px;
+    position: fixed;
+}
+.dash .dash-item1 h2
+{
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.dash .dash-item1 h2 .fas ,.dash .dash-item1 h2 .fab
+{
+    font-size: 30px;
+    /* align-items: center; */
+    color: #ce3412f7
+}
+
+.dash .dash-item1 nav a
+{
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 13px 33px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+.dash .dash-item1 nav a .active
+{
+    background-color: #172a3a96;
+    border-left:5px solid #ce3412f7
+
+}
+#active-button
+{
+    background-color: #172a3a96;
+    border-left:5px solid #ce3412f7;
+    box-shadow: 0px 1px 3px 0px black;
+}
+
+.dash .dash-item1 nav a:hover
+{
+
+    background-color: #172a3a96;
+    border-left:5px solid #ce3412f7;
+
+}
+.dash .dash-item2
+{
+    width: 100%;
+    border:1px solid black;
+
+    margin-left: 25%;
+}
+.dash .dash-item1 .fas,.dash .dash-item1 .fab
+{
+    font-weight: 900;
+    font-size: 1.0rem;
+    margin-right: 20px;
+}
+.dash .dash-item1 nav a .fas:hover
+{
+    color:#137de4;
+}
+
+/*--- Form ------*/
+
+.dash-item2 form
+{
+    padding:20px 50px;
+}
+.dash-item2 h2
+{
+    text-align: center;
+    color: #3d5160;
+}
+input[type=text],input[type=Email], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 17px;
+    box-sizing: border-box;
+}
+
+.dash-item2 input[type=submit] {
+    width: 100%;
+    background-color: #172a3a96;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dash-item2 input[type=submit]:hover {
+    background-color: #ce3412f7;
+}
+
+/*-----search customer----*/
+/*----dash 2-----*/
+.dash-item2 .search_customer 
+{
+    padding:30px;
+}
+.dash-item2 .search_customer input
+{
+    width: 30%;
+    padding:7px 20px;
+}
+.dash-item2 .search_customer button
+{
+    padding: 10px 33px;
+    margin-left: 10px;
+    margin-right: 10%;
+    background-color: #3d5160;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+.dash-item2 .search_customer .status_detail input
+{
+    width:20%;
+    border:none;
+}
+.dash-item2 .search_customer .status_detail
+{
+    display: inline;
+}
+/*---table ---*/
+.dash-item2 .table_box
+{
+    overflow-y: auto;
+    height: 350px;
+    overflow-x: auto;
+    width: 970px;
+}
+#table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #ddd;}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#137de4;
+    color: white;
+}
