@@ -1,3 +1,6 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.*"%>
+<%@page import="com.helper.javaconnect"%>
 <%@page import="com.entities.Employee" %>
 <!DOCTYPE html>
 <html>
@@ -10,38 +13,7 @@
     </head>
     <body>
         <header>
-            <div class="header">
-                <div>
-                    <h2>State Bank of India</h2>
-                </div>
-                <div>
-                    <ul>
-                        <li><a href="new_customer.jsp">Customer</a></li>
-                        <li><a href="">Account</a></li>
-                        <li><a href="new_transaction.jsp">Transaction</a></li>
-                        <li><a href="new_loan.jsp">Loan</a></li>
-                    </ul>
-                </div>
-                 <div>
-                    <ul>
-                        <%
-                           Employee u=(Employee)session.getAttribute("currentEmployee");
-                        try
-                        {
-                           String name =u.getName();
-                        %>
-                        <li><a href="#" style="border:none; font-size: 16px;"><span class="fa fa-user-circle"></span><%=name%></a></li>
-                        <li><a href="home.jsp" style="border:none;font-size: 16px;">
-                                <span class="fa fa-user-plus"></span>    Logout</a></li>
-                                <%
-                                }catch(Exception e)
-                        {
-                            response.sendRedirect("home.jsp");
-                        }
-                        %>
-                    </ul>
-                </div>
-            </div>
+            <%@include file="header.jsp" %>
         </header>
 
         <section id="">
@@ -55,15 +27,21 @@
                         <a href="all_transaction.jsp"><i class="fas fa-list"></i>All Transactions</a>
                     </nav>
                 </div>
+                <%
+               String name="";
+                %>
                 <div class="dash-item2">
                     <h2>Transaction Detail</h2>
                     <div class="search_customer">
-                        <input type="text" name="" placeholder="Enter Account No.." pattern="[A-Za-z]{3}" title="Three letter country code">
+                        <form action="transaction_detail.jsp" method="post">
+                        <input type="text" name="account_no" placeholder="Enter Account No.." >
                         <button>Search</button>
-                        <input type="text" name="" placeholder="customer name" readonly="" style="border:none">
+                        <input type="text" name="name" placeholder="customer name" value="<%=name%>" readonly="" style="border:none"></form>
                     </div>
                     <div class="table_box">
                         <table id="table">
+                            
+                           
                             <tr>
                                 <th>Date</th>
                                 <th>Amount</th>
@@ -71,13 +49,49 @@
                                 <th>Total Balance</th>
                             </tr>
                             <tbody>
-                                <tr>
-                                    <td>25/08/22020 </td>
-                                    <td>500</td>
-                                    <td>Credit</td>	
-                                    <td>10000</td>
+                                 <%
+                           String account_no= request.getParameter("account_no");
+                           
+                            if(account_no!=null)
+                            {
+                                Connection conn=javaconnect.connectdb();
+                            
+                            try
+                            {
+                                String query="select * from customer_transaction where account_no='"+account_no+"'order by trans_date desc";
+                                PreparedStatement ps=conn.prepareStatement(query);
+                                
+                                ResultSet rs=ps.executeQuery();
+                                
+                                while(rs.next())
+                                {
+                                  name=rs.getString("name");
+                                   %>
+                                  <tr>
+                                      <td><%=rs.getString("trans_date")%></td>
+                                    <td><%=rs.getString("amount")%></td>
+                                    <td><%=rs.getString("trans_type")%></td>	
+                                    <td><%=rs.getString("balance")%></td>
 
                                 </tr>
+                                
+                                <% 
+                                }
+                                
+                                
+                            }catch(Exception e)
+                            {
+                                JOptionPane.showMessageDialog(null,e);
+                            }
+                            
+                            }
+                           
+                            
+                            %>
+                            
+                            
+                            
+                               
                             </tbody>
                         </table>
                     </div>

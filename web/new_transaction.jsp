@@ -76,8 +76,9 @@
 
                     %>
 
-                    <%                       Account data = (Account) session.getAttribute("account_data");
-
+                    <%  
+                        Account data = (Account) session.getAttribute("account_data");
+                        String name="";
                         String account_no = "";
                         String ac_status = "";
                         String balance = "";
@@ -85,6 +86,7 @@
                             account_no = data.getAccount_no();
                             ac_status = data.getAccount_status();
                             balance = data.getBalance();
+                            name=data.getName();
 
                             session.removeAttribute("account_data");
                         }
@@ -97,12 +99,12 @@
                         </div>
                     </form>
 
-                            <form action="" method="post">
+                            <form action="Transaction_servlet" method="post">
                         <div class="search_customer" style="padding:10px; font-size: 20px">
 
                             <div class="status_detail">
                                 <label>Account Status</label>
-                                <input type="text" name="" placeholder="" readonly="" value="<%=ac_status%>" <%if (ac_status.equals("Active")) {
+                                <input type="text" name="ac_type" placeholder="" readonly="" value="<%=ac_status%>" <%if (ac_status.equals("Active")) {
                                        %>
                                        style="color:green;"
                                        <%
@@ -112,23 +114,25 @@
                                        <%
                                     }%>>
                                 <label>Balance</label>
-                                <input type="text" name="" placeholder="" readonly="" value="<%=balance%>" style="background-color:#ececec;">
+                                <input type="text" name="balance" placeholder="" readonly="" value="<%=balance%>" style="background-color:#ececec;">
+                                <input type="hidden" name="account_no" value="<%=account_no%>">
                             </div>
                         </div>
+                            <label for="fname">Customer Name</label>
+                        <input type="text" id="fname" name="name" readonly="" placeholder="Name .." value="<%=name%>">
                         <label for="fname">Enter Amount</label>
-                        <input type="text" id="fname" name="firstname" placeholder="RS..">
+                        <input type="text" id="fname" name="amount" placeholder="RS..">
                         <label for="lname">Credit OR Debit</label>
-                        <select id="accont_status" name="ac_status">
-                            <option style="color:green" >Credit + </option>
-                            <option style="color:red" selected="">Debit - </option>
+                        <select id="accont_status" name="trans_type">
+                            <option style="color:green" >Credit</option>
+                            <option style="color:red" selected="">Debit</option>
                         </select>
-                        <label for="fname">Date & Time</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Date & Time">
+                       
                         <label for="fname">Employee ID</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Employee ID.." readonly="" value="<%=employee_id%>">
+                        <input type="text" id="fname" name="emp_id" placeholder="Employee ID.." readonly="" value="<%=employee_id%>">
 
                         <label for="lname">Loan ID</label>
-                        <input type="text" id="lname" name="lastname" placeholder="loan id..">
+                        <input type="text" id="lname" name="loan_id" placeholder="loan id..">
 
 
 

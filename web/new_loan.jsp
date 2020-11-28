@@ -1,3 +1,5 @@
+<%@page import="java.util.Random"%>
+<%@page import="com.entities.Message"%>
 <%@page import="com.entities.Employee" %>
 <!DOCTYPE html>
 <html>
@@ -10,38 +12,7 @@
     </head>
     <body>
         <header>
-            <div class="header">
-                <div>
-                    <h2>State Bank of India</h2>
-                </div>
-                <div>
-                    <ul>
-                        <li><a href="new_customer.jsp">Customer</a></li>
-                        <li><a href="new_account.jsp">Account</a></li>
-                        <li><a href="new_transaction.jsp">Transaction</a></li>
-                        <li><a href="">Loan</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        <%
-                           Employee u=(Employee)session.getAttribute("currentEmployee");
-                        try
-                        {
-                           String name =u.getName();
-                        %>
-                        <li><a href="#" style="border:none; font-size: 16px;"><span class="fa fa-user-circle"></span><%=name%></a></li>
-                        <li><a href="home.jsp" style="border:none;font-size: 16px;">
-                                <span class="fa fa-user-plus"></span>    Logout</a></li>
-                                <%
-                                }catch(Exception e)
-                        {
-                            response.sendRedirect("home.jsp");
-                        }
-                        %>
-                    </ul>
-                </div>
-            </div>
+            <%@include file="header.jsp" %>
         </header>
 
         <section id="">
@@ -57,27 +28,63 @@
                     </nav>
                 </div>
                 <div class="dash-item2">
-                    <h2>New Loan Registration</h2>
-                    <form action="" method="">
-                        <label for="fname">Loan ID</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Loan ID..">
-                        <label for="fname">Account Number</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Account no..">
-                        <label for="fname">Amount</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Rs..">
-                        <label for="lname">Interest Rate</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Interest Rate..">
-                        <label for="lname">Duration</label>
-                        <input type="Email" id="lname" name="lastname" placeholder="Duration..">
-                        <label for="lname">Start Date</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Date">
-                        <label for="lname">Due Amount</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Due Amount..">
 
+                    <h2 id="">New Loan Registration</h2>
+
+                    <%
+                        Message m = (Message) session.getAttribute("msg");
+
+                        if (m != null) {
+                    %>
+                    <div >
+
+                        <h3 style="<%=m.getCssClass()%>padding: 10px;text-align: center;margin: 0px 20%;"><%=m.getContent()%></h3>
+
+                    </div>
+
+                    <%
+                            session.removeAttribute("msg");
+                        }
+
+                    %>
+                    <%
+                     Random rd=new Random();
+                     int num=rd.nextInt(10000+2);
+                    
+                    %>
+                    <form action="New_Loan_servlet" method="post">
+                        <label for="fname">Loan ID</label>
+                        <input type="text" id="fname" name="loan_id" placeholder="Loan ID.." value="<%=num%>" readonly="">
+                        <label for="fname">Account Number</label>
+                        <input type="text" id="fname" name="account_no" placeholder="Account no..">
+                        <label for="fname">Amount</label>
+                        <input type="text" id="fname" name="amount" placeholder="Rs..">
+                        <label for="lname">Interest Rate</label>
+                        <input type="text" id="lname" name="interest_rate" placeholder="Interest Rate..">
+                        <label for="lname">Duration</label>
+                        <input type="text" id="lname" name="duration" placeholder="Duration..">
+                        <label for="lname">Start Date</label>
+                        <input type="text" id="date" name="start_date" readonly="">
+                        <label for="lname">Due Amount</label>
+                        <input type="text" id="lname" name="due_amount" placeholder="Due Amount..">
+                        <%
+                        request.setAttribute("number",num);
+                        
+                        %>
                         <input type="submit" value="Submit">
                     </form>
                 </div>
             </div>
         </section>
+
+                    <script type="text/javascript">
+          
+            var today = new Date();
+
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+            document.getElementById("date").value =date;
+
+        </script>
     </body>
 </html>

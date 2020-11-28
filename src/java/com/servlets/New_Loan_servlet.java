@@ -5,11 +5,9 @@
  */
 package com.servlets;
 
-import com.database.AccountDao;
-import com.database.CustomerDao;
-import com.entities.Account;
-import com.entities.Customer;
+import com.database.LoanDao;
 import com.entities.Message;
+import com.entities.loan;
 import com.helper.javaconnect;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author manish
  */
-public class New_Account_servlet extends HttpServlet {
+public class New_Loan_servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,71 +40,42 @@ public class New_Account_servlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet New_Account_servlet</title>");            
+            out.println("<title>Servlet New_Loan_servlet</title>");            
             out.println("</head>");
             out.println("<body>");
-           
             
-             
-             String button=request.getParameter("Submit");
-             
-             String aadhar=request.getParameter("aadhar_no");
-             String account_no=request.getParameter("account_no");
-             String ac_type=request.getParameter("account_type");
-             String interest=request.getParameter("interest_rate");
-             String balance=request.getParameter("balance");
-             String ac_status=request.getParameter("ac_status");
-             String customer_name=request.getParameter("customer_name");
             
-           if(button.equals("Search"))
-           {
-               CustomerDao dao=new CustomerDao(javaconnect.connectdb());
-            Customer customer_data=dao.search_customer(aadhar);
-               if(customer_data==null)
+            
+            String loan_id=request.getParameter("loan_id");
+            String account_no=request.getParameter("account_no");
+            String amount=request.getParameter("amount");
+            String interest_rate=request.getParameter("interest_rate");
+            String duration=request.getParameter("duration");
+            String start_date=request.getParameter("start_date");
+            String due_amount=request.getParameter("due_amount");
+            
+           String loan_id2= (String)request.getAttribute("number");
+            
+            loan loandata=new loan(loan_id,account_no,amount,interest_rate,duration,start_date,due_amount);
+            LoanDao dao=new LoanDao(javaconnect.connectdb());
+            
+            if(dao.saveloan(loandata))
             {
-                out.println("null value occur");
-                Message msg=new Message("-Oops- Please Enter valid Aadhar id !","error","color: #721c24;background-color:#f8d7da;border: 1px solid transparent;border-color: #f5c6cb;");
+                Message msg=new Message("Save Successfully ! Enter New Customer","success","color: #155724;background-color:#d4edda;border: 1px solid transparent;border-color: #c3e6cb;");
                 HttpSession s=request.getSession();
                 s.setAttribute("msg",msg);
-                response.sendRedirect("new_account.jsp");
+                response.sendRedirect("new_loan.jsp");
             }
             else
             {
-                HttpSession s=request.getSession();
-                s.setAttribute("search_customer", customer_data);
-                response.sendRedirect("new_account.jsp");
-            }
-           }
-           else if(button.equals("Submit"))
-           {
-             
-              Account account=new Account(aadhar,account_no,ac_type,interest,balance,ac_status,customer_name);
-              AccountDao dao=new AccountDao(javaconnect.connectdb());
-              
-              if(dao.saveAccount(account))
-              {
-                  Message msg=new Message("Created Successfully ! Open New Account","success","color: #155724;background-color:#d4edda;border: 1px solid transparent;border-color: #c3e6cb;");
-                  
-                  HttpSession s=request.getSession();
-                  s.setAttribute("msg",msg);
-                  
-                  response.sendRedirect("new_account.jsp");
-              }
-              else
-              {
-                Message msg=new Message("Please Enter Correct Detail -Oops-","error","color: #721c24;background-color:#f8d7da;border: 1px solid transparent;border-color: #f5c6cb;");
+                
+               Message msg=new Message("Please Enter Correct Detail -Oops-","error","color: #721c24;background-color:#f8d7da;border: 1px solid transparent;border-color: #f5c6cb;");
                
                HttpSession s=request.getSession();
                s.setAttribute("msg",msg);
                
-               response.sendRedirect("new_account.jsp");
-              }
-           }
-           
-            
-            
-            
-            
+               response.sendRedirect("new_customer.jsp");
+            }
             
             out.println("</body>");
             out.println("</html>");

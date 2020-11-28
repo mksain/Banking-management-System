@@ -1,4 +1,9 @@
+<%@page import="com.helper.javaconnect"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="com.entities.Employee" %>
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,38 +15,7 @@
     </head>
     <body>
         <header>
-            <div class="header">
-                <div>
-                    <h2>State Bank of India</h2>
-                </div>
-                <div>
-                    <ul>
-                        <li><a href="new_customer.jsp">Customer</a></li>
-                        <li><a href="new_account.jsp">Account</a></li>
-                        <li><a href="new_transaction.jsp">Transaction</a></li>
-                        <li><a href="">Loan</a></li>
-                    </ul>
-                </div>
-                 <div>
-                    <ul>
-                        <%
-                           Employee u=(Employee)session.getAttribute("currentEmployee");
-                        try
-                        {
-                           String name =u.getName();
-                        %>
-                        <li><a href="#" style="border:none; font-size: 16px;"><span class="fa fa-user-circle"></span><%=name%></a></li>
-                        <li><a href="home.jsp" style="border:none;font-size: 16px;">
-                                <span class="fa fa-user-plus"></span>    Logout</a></li>
-                                <%
-                                }catch(Exception e)
-                        {
-                            response.sendRedirect("home.jsp");
-                        }
-                        %>
-                    </ul>
-                </div>
-            </div>
+            <%@include file="header.jsp" %>
         </header>
 
         <section id="">
@@ -67,21 +41,43 @@
                                 <th>Amount</th>
                                 <th>Interest Rate</th>
                                 <th>Duration</th>
-                                <th>Start Date</th>
+                                <th>Loan Date</th>
                                 <th>Due Amount</th>
 
                             </tr>
                             <tbody>
+                                
+                                <%
+                        Connection conn=javaconnect.connectdb();
+                                try
+                                {
+                                    String query="select * from loan order by start_date desc";
+                                    PreparedStatement ps=conn.prepareStatement(query);
+                                    
+                                    ResultSet rs=ps.executeQuery();
+                                    while(rs.next())
+                                    {
+                                        %>
                                 <tr>
-                                    <td>1076</td>
-                                    <td>45870100001471</td>
-                                    <td>20000</td>	
-                                    <td>5.9%</td>
-                                    <td>18 months</td>
-                                    <td>20/09/2020</td>
-                                    <td>19000</td>	
+                                    <td><%=rs.getString("loan_id")%></td>
+                                    <td><%=rs.getString("account_no")%></td>
+                                    <td><%=rs.getString("amount")%></td>	
+                                    <td><%=rs.getString("interest_rate")%> %</td>
+                                    <td><%=rs.getString("duration")%> Month</td>
+                                    <td><%=rs.getString("start_date")%></td>
+                                    <td><%=rs.getString("due_amount")%></td>	
 
                                 </tr>
+                                <%
+                                    }
+                                    
+                                }catch(Exception e)
+                                {
+                                    JOptionPane.showMessageDialog(null,e);
+                                }
+                                
+                                %>
+                                
                             </tbody>
                         </table>
                     </div>

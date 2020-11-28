@@ -13,15 +13,30 @@ public class Account {
     private String interest_rate;
     private String balance;
     private String account_status;
+    private String name;
 
-    public Account(String aadhar_id,String account_no, String account_type, String interest_rate, String balance, String account_status) {
+    public Account(String aadhar_id,String account_no, String account_type, String interest_rate, String balance, String account_status,String name) {
         this.account_no = account_no;
         this.aadhar_id=aadhar_id;
         this.account_type = account_type;
         this.interest_rate = interest_rate;
         this.balance = balance;
         this.account_status = account_status;
+        this.name=name;
     }
+
+    public Account(String balance) {
+        this.balance = balance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     
     public Account()
     {

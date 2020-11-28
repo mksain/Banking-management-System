@@ -1,4 +1,7 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="com.helper.javaconnect"%>
 <%@page import="com.entities.Employee" %>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,38 +13,7 @@
     </head>
     <body>
         <header>
-            <div class="header">
-                <div>
-                    <h2>State Bank of India</h2>
-                </div>
-                <div>
-                    <ul>
-                        <li><a href="new_customer.jsp">Customer</a></li>
-                        <li><a href="new_account.jsp">Account</a></li>
-                        <li><a href="#">Transaction</a></li>
-                        <li><a href="new_loan.jsp">Loan</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        <%
-                           Employee u=(Employee)session.getAttribute("currentEmployee");
-                        try
-                        {
-                           String name =u.getName();
-                        %>
-                        <li><a href="#" style="border:none; font-size: 16px;"><span class="fa fa-user-circle"></span><%=name%></a></li>
-                        <li><a href="home.jsp" style="border:none;font-size: 16px;">
-                                <span class="fa fa-user-plus"></span>    Logout</a></li>
-                                <%
-                                }catch(Exception e)
-                        {
-                            response.sendRedirect("home.jsp");
-                        }
-                        %>
-                    </ul>
-                </div>
-            </div>
+           <%@include file="header.jsp" %>
         </header>
 
         <section id="">
@@ -60,22 +32,46 @@
 
                     <div class="table_box">
                         <table id="table">
+
                             <tr>
                                 <th>Account Number</th>
+                                <th>Name</th>
                                 <th>Date</th>
                                 <th>Amount</th>
                                 <th>Credit OR Debit</th>
                                 <th>Total Balance</th>
                             </tr>
                             <tbody>
+
+                                <%
+                                    Connection conn = javaconnect.connectdb();
+                                    try {
+                                        String query = "select * from customer_transaction order by trans_date desc";
+
+                                        PreparedStatement ps = conn.prepareStatement(query);
+
+                                        ResultSet rs = ps.executeQuery();
+
+                                        while (rs.next()) {
+                                %>
                                 <tr>
-                                    <td>45870100005454</td>
-                                    <td>25/08/22020 </td>
-                                    <td>500</td>
-                                    <td>Credit</td>	
-                                    <td>10000</td>
+                                    <td><%=rs.getString("account_no")%></td>
+                                    <td><%=rs.getString("name")%></td>
+                                    <td><%=rs.getString("trans_date")%></td>
+                                    <td><%=rs.getString("amount")%></td>
+                                    <td><%=rs.getString("trans_type")%></td>	
+                                    <td><%=rs.getString("balance")%></td>
 
                                 </tr>
+
+                                <%
+                                        }
+                                    } catch (Exception e) {
+                                        JOptionPane.showMessageDialog(null, e);
+                                    }
+
+                                %>
+
                             </tbody>
                         </table>
                     </div>

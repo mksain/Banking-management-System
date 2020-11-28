@@ -23,7 +23,7 @@ public class AccountDao {
         boolean f=false;
         try
         {
-            String query="insert into account(account_no,ac_type,interest,balance,ac_status,aadhar_no) values(?,?,?,?,?,?)";
+            String query="insert into account(account_no,ac_type,interest,balance,ac_status,aadhar_no,name) values(?,?,?,?,?,?,?)";
             
             PreparedStatement ps=this.conn.prepareStatement(query);
             
@@ -33,6 +33,7 @@ public class AccountDao {
             ps.setString(4,account.getBalance());
             ps.setString(5,account.getAccount_status());
             ps.setString(6,account.getAadhar_id());
+            ps.setString(7,account.getName());
             
             ps.executeUpdate();
             
@@ -69,7 +70,7 @@ public class AccountDao {
                 account.setInterest_rate(rs.getString("interest"));
                 account.setBalance(rs.getString("balance"));
                 account.setAccount_status(rs.getString("ac_status"));
-                
+                account.setName(rs.getString("name"));
             }
             
         }catch(Exception e)
@@ -77,5 +78,24 @@ public class AccountDao {
             JOptionPane.showMessageDialog(null,e);
         }
         return account;
+    }
+    
+    public boolean update_balance(String account_no ,Account account)
+    {
+       boolean f=false;
+        
+        try
+        {
+            String query="Update account set balance=? where account_no="+account_no;
+            PreparedStatement ps=this.conn.prepareStatement(query);  
+            
+            ps.setString(1,account.getBalance());
+            
+            ps.executeUpdate();
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+       return f;
     }
 }
