@@ -9,19 +9,8 @@
     </head>
     <body>
         <header>
-            <div class="header">
-                <div>
-                    <h2>State Bank of India</h2>
-                </div>
-                <div>
-                    <ul>
-                        <li><a href="branch.html">Branch</a></li>
-                        <li><a href="#">Employee</a></li>
-                        <li><a href="new_department.html">Department</a></li>
-
-                    </ul>
-                </div>
-            </div>	
+             <%@include file="employee_header.jsp" %>
+            <jsp:include page="employee_header.jsp"/>
         </header>
 
         <section id="">
@@ -31,8 +20,8 @@
 
                     <h2><i class="fas fa-user-tie"></i>Employee Dashboard</h2>
                     <nav>
-                        <a href="new_employee.html"><i class="fas fa-plus-square"></i>Add New Employee</a>
-                        <a href="edit_employee.html"><i class="fas fa-search"></i>Edit Employee Detail</a>
+                        <a href="new_employee.jsp"><i class="fas fa-plus-square"></i>Add New Employee</a>
+                        <a href="edit_employee.jsp"><i class="fas fa-search"></i>Edit Employee Detail</a>
                         <a href="#" id="active-button"><i class="fas fa-list"></i> List of Employees</a>
                     </nav>
                 </div>

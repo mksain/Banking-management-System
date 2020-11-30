@@ -17,7 +17,7 @@
                     <ul>
                         <%
                            Employee u=(Employee)session.getAttribute("currentEmployee");
-                        try
+                        if(u!=null)
                         {
                            String name =u.getName();
                         %>
@@ -25,10 +25,14 @@
                         <li><a href="Logout_Employee_servlet" style="border:none;font-size: 16px;">
                                 <span class="fa fa-user-plus"></span>    Logout</a></li>
                                 <%
-                                }catch(Exception e)
+                                }else
                         {
                             response.sendRedirect("home.jsp");
                         }
                         %>
                     </ul>
                 </div>
+                    
+                        <%-----Modal profile box----%>
+                        
+                       

@@ -12,9 +12,11 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/employee.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+        
     </head>
     <body>
         <header>
+           
             <%@include file="header.jsp" %>
         </header>
 
@@ -26,13 +28,15 @@
                     <h2><i class="fas fa-hand-holding-usd"></i>Loan Dashboard</h2>
                     <nav>
                         <a href="new_loan.jsp"><i class="fas fa-user-plus"></i>New Loan Registration</a>
-                        <a href=""><i class="fas fa-search"></i>All Loans Detail</a>
+                        <a href="all_loan_detail.jsp"><i class="fas fa-search"></i>All Loans Detail</a>
 
                     </nav>
                 </div>
                 <div class="dash-item2">
                     <h2>All Loans Details</h2>
-
+                    <form action="" method="get">
+                        <input type="text" name="search" placeholder="Search by Account no... OR Loan id...">
+                    </form>
                     <div class="table_box">
                         <table id="table">
                             <tr>
@@ -49,9 +53,19 @@
                                 
                                 <%
                         Connection conn=javaconnect.connectdb();
+                        String search=request.getParameter("search");
+                        String query;
                                 try
                                 {
-                                    String query="select * from loan order by start_date desc";
+                                    if(search!=null)
+                                    {
+                                        query="select * from loan where account_no='"+search+"'or loan_id="+search;
+                                    }
+                                    else
+                                    {
+                                        query="select * from loan order by start_date desc";
+                                    }
+                                    
                                     PreparedStatement ps=conn.prepareStatement(query);
                                     
                                     ResultSet rs=ps.executeQuery();
@@ -65,7 +79,7 @@
                                     <td><%=rs.getString("interest_rate")%> %</td>
                                     <td><%=rs.getString("duration")%> Month</td>
                                     <td><%=rs.getString("start_date")%></td>
-                                    <td><%=rs.getString("due_amount")%></td>	
+                                    <td><%=rs.getString("due_amount")%> Rs.</td>	
 
                                 </tr>
                                 <%
@@ -73,7 +87,7 @@
                                     
                                 }catch(Exception e)
                                 {
-                                    JOptionPane.showMessageDialog(null,e);
+                                    JOptionPane.showMessageDialog(null,"please enter valid value Or refresh page");
                                 }
                                 
                                 %>
@@ -84,5 +98,6 @@
                 </div>
             </div>
         </section>
+                                
     </body>
 </html>

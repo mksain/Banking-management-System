@@ -31,8 +31,7 @@
 
                     <h2 id="">New Loan Registration</h2>
 
-                    <%
-                        Message m = (Message) session.getAttribute("msg");
+                    <%                        Message m = (Message) session.getAttribute("msg");
 
                         if (m != null) {
                     %>
@@ -47,10 +46,9 @@
                         }
 
                     %>
-                    <%
-                     Random rd=new Random();
-                     int num=rd.nextInt(10000+2);
-                    
+                    <%                        Random rd = new Random();
+                                      int num = rd.nextInt(10000 + 2);
+
                     %>
                     <form action="New_Loan_servlet" method="post">
                         <label for="fname">Loan ID</label>
@@ -68,8 +66,8 @@
                         <label for="lname">Due Amount</label>
                         <input type="text" id="lname" name="due_amount" placeholder="Due Amount..">
                         <%
-                        request.setAttribute("number",num);
-                        
+                            request.setAttribute("number", num);
+
                         %>
                         <input type="submit" value="Submit">
                     </form>
@@ -77,13 +75,13 @@
             </div>
         </section>
 
-                    <script type="text/javascript">
-          
+        <script type="text/javascript">
+
             var today = new Date();
 
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-            document.getElementById("date").value =date;
+            document.getElementById("date").value = date;
 
         </script>
     </body>
