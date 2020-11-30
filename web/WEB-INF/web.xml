@@ -40,6 +40,14 @@
         <servlet-name>New_Loan_servlet</servlet-name>
         <servlet-class>com.servlets.New_Loan_servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>New_Department_servlet</servlet-name>
+        <servlet-class>com.servlets.New_Department_servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>New_Branch_servlet</servlet-name>
+        <servlet-class>com.servlets.New_Branch_servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register_Employee_servlet</servlet-name>
         <url-pattern>/Register_Employee_servlet</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>New_Loan_servlet</servlet-name>
         <url-pattern>/New_Loan_servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>New_Department_servlet</servlet-name>
+        <url-pattern>/New_Department_servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>New_Branch_servlet</servlet-name>
+        <url-pattern>/New_Branch_servlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

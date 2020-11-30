@@ -1,3 +1,6 @@
+<%@page import="com.helper.javaconnect"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,28 +43,39 @@
                                 <th>Department ID</th>
                             </tr>
                             <tbody>
-                                <tr>
-                                    <td>4225</td>
-                                    <td>Manish</td>
-                                    <td>Mathura</td>
-                                    <td>6396022397</td>	
-                                    <td>mkcomputeredu03@gmail.com</td>
-                                    <td>45870100005455</td>
-                                    <td>BarBo1236</td>
-                                    <td>7899566</td>
+                                
+                                <%
+                                Connection conn=javaconnect.connectdb();
+                                try
+                                {
+                                    String query="select * from employee";
+                                    PreparedStatement ps=conn.prepareStatement(query);
+                                    
+                                    ResultSet rs=ps.executeQuery();
+                                    
+                                    while(rs.next())
+                                    {
+                                        %>
+                                
+                                 <tr>
+                                     <td><%=rs.getString(1)%></td>
+                                    <td><%=rs.getString(2)%></td>
+                                    <td><%=rs.getString(3)%></td>
+                                    <td><%=rs.getString(4)%></td>	
+                                    <td><%=rs.getString(5)%></td>
+                                    <td><%=rs.getString(6)%></td>
+                                    <td><%=rs.getString(7)%></td>
+                                    <td><%=rs.getString(8)%></td>
 
                                 </tr>
-                                <tr>
-                                    <td>4225</td>
-                                    <td>Anna Reddy</td>
-                                    <td>Mathura</td>
-                                    <td>6396022397</td>	
-                                    <td>mkcomputeredu03@gmail.com</td>
-                                    <td>45870100005455</td>
-                                    <td>BarBo1236</td>
-                                    <td>7899566</td>
-
-                                </tr>
+                                <%
+                                    }
+                                    
+                                }catch(Exception e)
+                                {
+                                    JOptionPane.showMessageDialog(null,e);
+                                }
+                                %>
                             </tbody>
                         </table>
                     </div>
@@ -71,10 +85,7 @@
 
         <script type="text/javascript" src="Jquery/jquery.js"></script>
         <script type="text/javascript">
-            $(document).ready(function ()
-            {
-                alert(1);
-            });
+          
         </script>
     </body>
 </html>

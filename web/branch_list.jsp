@@ -1,3 +1,7 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="com.helper.javaconnect"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,14 +41,36 @@
                                 <th>Manager ID</th>
                             </tr>
                             <tbody>
-                                <tr>
-                                    <td>BarBo1236</td>
-                                    <td>Barsana</td>
-                                    <td>Mathura</td>
-                                    <td>7894566566</td>	
-                                    <td>4566</td>
+                                
+                                <%
+                                Connection conn=javaconnect.connectdb();
+                                try
+                                {
+                                    String query="select * from branch";
+                                    PreparedStatement ps=conn.prepareStatement(query);
+                                    
+                                    ResultSet rs=ps.executeQuery();
+                                    
+                                    while(rs.next())
+                                    {
+                                        %>
+                                 <tr>
+                                    <td><%=rs.getString(1)%></td>
+                                    <td><%=rs.getString(2)%></td>
+                                    <td><%=rs.getString(3)%></td>
+                                    <td><%=rs.getString(4)%></td>	
+                                    <td><%=rs.getString(5)%></td>
 
                                 </tr>
+                                
+                                <%
+                                    }
+                                }catch(Exception e)
+                                {
+                                    JOptionPane.showMessageDialog(null,e);
+                                }
+                                %>
+                               
                             </tbody>
                         </table>
                     </div>

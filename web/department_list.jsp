@@ -1,3 +1,6 @@
+<%@page import="com.helper.javaconnect"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,22 +40,38 @@
 
                             </tr>
                             <tbody>
-                                <tr>
-                                    <td>4225</td>
-                                    <td>Manish</td>
-                                    <td>Mathura</td>
-                                    <td>6396022397</td>	
+                                
+                                <%
+                                Connection conn=javaconnect.connectdb();
+                                try
+                                {
+                                    String query="select * from department";
+                                    PreparedStatement ps=conn.prepareStatement(query);
+                                    
+                                    ResultSet rs=ps.executeQuery();
+                                    
+                                    while(rs.next())
+                                    {
+                                        %>
+                                
+                                 <tr>
+                                    <td><%=rs.getString(1)%></td>
+                                    <td><%=rs.getString(2)%></td>
+                                    <td><%=rs.getString(3)%></td>
+                                    <td><%=rs.getString(4)%></td>	
 
 
                                 </tr>
-                                <tr>
-                                    <td>4225</td>
-                                    <td>Anna Reddy</td>
-                                    <td>Mathura</td>
-                                    <td>6396022397</td>	
-
-
-                                </tr>
+                                
+                                <%
+                                    }
+                                    
+                                }catch(Exception e)
+                                {
+                                    JOptionPane.showMessageDialog(null,e);
+                                }
+                                
+                                %>
                             </tbody>
                         </table>
                     </div>

@@ -1,3 +1,4 @@
+<%@page import="java.util.Random"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,18 +28,30 @@
                 </div>
                 <div class="dash-item2">
                     <h2>Add New Department</h2>
-                    <form action="" method="">
+                    
+                    <%
+                    Random rd=new Random();
+                    int value=rd.nextInt(100000+1);
+                    %>
+                    <form action="New_Department_servlet" method="post">
 
                         <label for="fname">Department ID</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Department ID.." required>
+                        <input type="text" id="fname" name="dep_id" placeholder="Department ID.." required readonly value="<%=value%>">
 
                         <label for="fname">Department Name</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Name of Branch" required="">
+                        <input type="text" id="fname" name="dep_name" placeholder="Name of Branch" required="">
                         <label for="lname">Head of Department</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Employee ID" required="">
+                        <input type="text" id="lname" name="hod_name" placeholder="Employee ID" required="">
 
                         <label for="lname">Designation</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Designation" required="">
+                        <select name="designation">
+                            <option>Accountant</option>
+                            <option>Cashier</option>
+                            <option>Manager</option>
+                            <option>store Keepar</option>
+                              <option>Peon</option>
+                                <option>other</option>
+                        </select>
 
                         <input type="submit" value="Submit">
                     </form>
