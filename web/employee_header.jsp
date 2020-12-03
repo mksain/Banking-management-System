@@ -21,6 +21,8 @@
             <li><a href="#" style="border:none; font-size: 16px;"><span class="fa fa-user-circle"></span><%=name%></a></li>
             <li><a href="Logout_Employee_servlet" style="border:none;font-size: 16px;">
                     <span class="fa fa-user-plus"></span>    Logout</a></li>
+                    <li><a href="new_customer.jsp" style="border:none;font-size: 16px;">
+                    <span class="fa fa-th-large"></span> Administrator</a></li>
                     <%
                         } else {
                             response.sendRedirect("home.jsp");

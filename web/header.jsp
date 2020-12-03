@@ -25,6 +25,15 @@
                         <li><a href="Logout_Employee_servlet" style="border:none;font-size: 16px;">
                                 <span class="fa fa-user-plus"></span>    Logout</a></li>
                                 <%
+                                if(u.getDepartment_id().equals("8897"))
+                                {
+                                    %>
+                                <li><a href="new_employee.jsp" style="border:none;font-size: 16px;">
+                                <span class="fa fa-th-large"></span> Administrator</a></li>
+                                <%
+                                }
+                                %>
+                                <%
                                 }else
                         {
                             response.sendRedirect("home.jsp");

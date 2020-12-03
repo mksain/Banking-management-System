@@ -12,7 +12,7 @@ body
     color: white;
     position: fixed;
     width:100%;
-    height:70px;
+    height:60px;
 }
 .header ul
 {
@@ -41,7 +41,7 @@ body
 
 .dash
 {
-    padding-top: 70px;
+    padding-top: 60px;
     display: flex;
 }
 .dash .dash-item1
@@ -54,7 +54,7 @@ body
     /*  min-height: 600px;*/
     bottom: 0;
     top:0;
-    margin-top: 70px;
+    margin-top: 60px;
     position: fixed;
 }
 .dash .dash-item1 h2
@@ -106,7 +106,7 @@ body
 .dash .dash-item2
 {
     width: 100%;
-    border:1px solid black;
+    
 
     margin-left: 25%;
 }
